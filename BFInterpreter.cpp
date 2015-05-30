@@ -4,7 +4,7 @@
 #include <fstream>
 #include <algorithm>
 
-int main(){
+int main(int argc, char* argv[]){
 	typedef unsigned char BYTE;   //byte datatype
 	const int memSize=30000;	
 	BYTE mem[memSize];				//the data memory
@@ -13,7 +13,7 @@ int main(){
 
 	for (int i = 0; i < memSize; i++) //initialise the memories
 	{
-		mem[i]=NULL;
+		mem[i]=NULL;              //this feels wrong
 		instructions[i]=NULL;
 	}
 
@@ -22,30 +22,30 @@ int main(){
 	
 
 	char ch;
-	std::fstream fin("input.txt", std::fstream::in);
+	std::fstream fin(argv[1], std::fstream::in);  //take filename from first command line argument
 	int i=0;
-	while (fin >> std::noskipws >> ch) {   //fill the instruction memory from with the code from the txt
+	while (fin >> std::noskipws >> ch) {   //fill the instruction memory with the code from the input file
 		instructions[i]=ch; // Or whatever
 		i++;
 	}
-
+//TODO file opened check
 
 
 /////////////////////////////////////////////check for unmatched brackets
-int stack=0;
+int count=0;
 for(int ip=0; ip<memSize; ip++){
 	if(instructions[ip]==91){
-		stack++;
+		count++;
 	}
 	if(instructions[ip]==93){
-		stack--;	
+		count--;	
 	}
-	if(stack<0){
+	if(count<0){
 		break;
 	}
 }
 
-if(stack!=0){
+if(count!=0){
 	std::cout<<"There are unmatched square brackets in the code"<<std::endl;
 	exit(0);
 }
