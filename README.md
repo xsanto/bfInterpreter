@@ -6,3 +6,4 @@ It then proceeds to execute the brainfuck commands one by one.
 
 The data memory and the instruction memory are 30,000 bytes each.
 
+ 
